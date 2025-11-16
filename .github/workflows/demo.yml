@@ -44,3 +44,5 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: dist-files
+      - name: Output Contents
+        run: ls -la
