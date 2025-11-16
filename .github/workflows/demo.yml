@@ -11,13 +11,6 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
       - name: Install dependencies
         run: npm ci
 
@@ -36,13 +29,6 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
       - name: Install dependencies
         run: npm ci
 
@@ -52,7 +38,6 @@ jobs:
       - name: Publish JS filename
         id: publish
         run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
-
       - name: Upload built files
         uses: actions/upload-artifact@v4
         with:
@@ -68,10 +53,10 @@ jobs:
         with:
           name: dist-files
 
-      - name: Show file output
-        run: |
-          echo "JS File: ${{ needs.build.outputs.script-file }}"
-          ls -la dist
+      - name: output filename
+        run: echo "${{needs.build.outputs.script-file}}"
 
       - name: Deploy
         run: echo "Deploying..."
+      - name: Output Contents
+        run: ls -la
